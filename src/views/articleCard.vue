@@ -14,6 +14,7 @@
 
 <style scoped>
 .box{
+    opacity: 0.88;
     position: absolute;
     width: 250px;
     height: 150px;
