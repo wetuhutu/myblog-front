@@ -2,6 +2,7 @@
 import logIn from './views/logIn.vue';
 import articleCard from './views/articleCard.vue';
 import search from './views/search.vue';
+import updataArticle from './views/updataArticle.vue';
 </script>
 
 <template>
@@ -15,9 +16,7 @@ import search from './views/search.vue';
         <search />
       </div>
       <div class="main-content">
-        <div class="updata">
-          <button class="content">更新文章</button>
-        </div>
+        <div style="width: 100%;"> <updataArticle /></div>
         
         <div class="card"><articleCard /></div>
         <div class="card"><articleCard /></div>
@@ -58,14 +57,12 @@ main {
     height: 100vh;
 }
 
-.updata{
+/* .updata{
   top: 0;
   left: 0;
   width: 100%;
   height: 35px;
-  /* background-color: antiquewhite; */
-}
-
+} 
 .updata .content{
   display: flex;
   justify-content: center;
@@ -90,6 +87,7 @@ main {
   background-color: rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease-in-out;
 }
+  */
 
 .header {
     height: 30%;
