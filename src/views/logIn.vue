@@ -7,6 +7,8 @@ const user = ref({
   password: ''
 });
 
+const token = ref('');
+
 const Login = () => {
     console.log('User:', user.value);
     if(user.username === '' || user.password === ''){
@@ -16,9 +18,16 @@ const Login = () => {
         alert('Login successfully')
     }
 
-    axios.get('https://47590424-51fc-4690-9c7c-2f3bf84f3d71.mock.pstmn.io/user/1')
+    axios.post('http://localhost:8080/api/auth/login', {
+            username: user.value.username,
+            password: user.value.password
+        })
         .then(response =>{
-            console.log('response: ', response.data)
+            console.log('response: ', response.data);
+            token.data = response.headers.authorization;
+            let tokenString = token.data.split(' ')[1];
+            console.log('header ', tokenString);
+            localStorage.setItem('token', tokenString)
         })
 };
 

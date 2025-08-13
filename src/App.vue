@@ -3,6 +3,14 @@ import logIn from './views/logIn.vue';
 import articleCard from './views/articleCard.vue';
 import search from './views/search.vue';
 import updataArticle from './views/updataArticle.vue';
+import { ref } from 'vue';
+
+const Total = ref(10);
+
+function getTotal(value) {
+    Total.value = value;
+}
+
 </script>
 
 <template>
@@ -12,30 +20,15 @@ import updataArticle from './views/updataArticle.vue';
     </aside>
 
     <main>
+      
       <div class="header">
         <search />
       </div>
       <div class="main-content">
-        <div style="width: 100%;"> <updataArticle /></div>
+        <div style="width: 100%;"> <updataArticle @updataTotal="getTotal" /></div>
         
-        <div class="card"><articleCard /></div>
-        <div class="card"><articleCard /></div>
-        <div class="card"><articleCard /></div>
-        <div class="card"><articleCard /></div>
-        <div class="card"><articleCard /></div>
-        <div class="card"><articleCard /></div>
-        <div class="card"><articleCard /></div>
-        <div class="card"><articleCard /></div>
-        <div class="card"><articleCard /></div>
-        <div class="card"><articleCard /></div>
-        <div class="card"><articleCard /></div>
-        <div class="card"><articleCard /></div>
-        <div class="card"><articleCard /></div>
-        <div class="card"><articleCard /></div>
-        <div class="card"><articleCard /></div>
-        <div class="card"><articleCard /></div>
-
-
+        <div v-for="n in Total"   class="card"><articleCard /></div>
+    
       </div>
       
     </main>
@@ -57,38 +50,6 @@ main {
     height: 100vh;
 }
 
-/* .updata{
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 35px;
-} 
-.updata .content{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  margin-left: 30px;
-  width: 100px;
-  font-family: sans-serif;
-  font-size: 15px;
-  color: rgba(0, 255, 255, 0.5);
-  border-radius: 30px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: none;
-  outline: none;
-  backdrop-filter: blur(5px);
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-
-.updata .content:hover {
-  transform: scale(1.1);
-  background-color: rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease-in-out;
-}
-  */
-
 .header {
     height: 30%;
     display: flex;
@@ -100,7 +61,6 @@ main {
     position: relative;
     height: 70%;
     display: flex;
-    align-items: center;
     overflow-y: scroll ;
     scrollbar-width: none;
     font-size: 30px;
