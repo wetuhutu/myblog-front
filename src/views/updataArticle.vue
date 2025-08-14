@@ -1,28 +1,39 @@
 <script setup>
 import axios from 'axios';
+import { useUpdateArticleStore } from '@/store/updateArticle';
 import { ref } from 'vue';
+const updateArticleStore = useUpdateArticleStore();
 
-const Total = ref(1);
+const articles = ref([]);
 
-const emit = defineEmits(['updataTotal']);
-const updataArticle = () => {
+async function updataArticle() {
     console.log('updata article successfully');
-    axios.get('http://localhost:8080/api/articles?size=10&page=1&category=tech&status=published&keyword=vue', {
+    await axios.get('http://localhost:8080/api/articles?size=10&page=1&category=tech&status=published&keyword=vue', {
         headers: {
             Authorization: localStorage.getItem('token')
         }
     })
+
     .then(response => {
-        console.log('response: ', response.data.data);
-        const articles = response.data;
-        Total.value = articles.total;
-        console.log('Total: ', Total.value);
-        emit('updataTotal', Total.value);
+        articles.value = response.data;
+        console.log('articles: ',articles.value);
+        const mappedArticles =  mapArticles(articles.value.data);
+        // console.log('mappedArticles: ', mappedArticles);
+        updateArticleStore.articleList = mappedArticles;
+       
     })
     .catch(error => {
         console.log('error: ', error);
     });
 };
+
+function mapArticles(rawArticles){
+    return rawArticles.map(article => ({
+        id: article.id,
+        title: article.title,
+        content: article.summary,
+    }));
+}
 
 </script>
 

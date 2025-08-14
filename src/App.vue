@@ -4,12 +4,11 @@ import articleCard from './views/articleCard.vue';
 import search from './views/search.vue';
 import updataArticle from './views/updataArticle.vue';
 import { ref } from 'vue';
+import { useUpdateArticleStore } from '@/store/updateArticle';
 
-const Total = ref(10);
-
-function getTotal(value) {
-    Total.value = value;
-}
+const updateArticleStore = useUpdateArticleStore();
+const articles = ref([]);
+articles.value = updateArticleStore.articleList;
 
 </script>
 
@@ -25,9 +24,19 @@ function getTotal(value) {
         <search />
       </div>
       <div class="main-content">
-        <div style="width: 100%;"> <updataArticle @updataTotal="getTotal" /></div>
+        <div style="width: 100%;"> <updataArticle /></div>
         
-        <div v-for="n in Total"   class="card"><articleCard /></div>
+        <div v-for="article in articles" class="card"> 
+          <articleCard>
+            <template #title>
+              {{ article.title }}
+            </template>
+            <template>
+              {{ article.content }} 
+            </template>
+          </articleCard>
+          
+        </div>
     
       </div>
       

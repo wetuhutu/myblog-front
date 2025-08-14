@@ -5,8 +5,14 @@
 <template>
     <div class="box">
         <div class="about">
-            <div class="title">title</div>
-            <p>Hello! I'm a web developer with a passion for creating beautiful and functional websites.</p>
+            <div class="title">
+                <a href="#" class="title-link">
+                    <slot name="title"></slot>
+                </a>
+            </div>
+            <p>
+                <slot name="title"></slot>
+            </p>
         </div>
         <div class="figure"></div>
     </div>
@@ -90,5 +96,10 @@
 
 .box:hover .figure::after{
     transform: rotateX(90deg);
+}
+
+.title-link {
+    text-decoration: none;
+    color: #baea7b;
 }
 </style>
