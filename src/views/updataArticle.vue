@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { useUpdateArticleStore } from '@/store/updateArticle';
 import { ref } from 'vue';
+
 const updateArticleStore = useUpdateArticleStore();
 
 const articles = ref([]);
@@ -16,7 +17,6 @@ async function updataArticle() {
 
     .then(response => {
         articles.value = response.data;
-        console.log('articles: ',articles.value);
         const mappedArticles =  mapArticles(articles.value.data);
         // console.log('mappedArticles: ', mappedArticles);
         updateArticleStore.articleList = mappedArticles;
@@ -28,10 +28,12 @@ async function updataArticle() {
 };
 
 function mapArticles(rawArticles){
+
     return rawArticles.map(article => ({
         id: article.id,
         title: article.title,
-        content: article.summary,
+        summary: article.summary,
+        cover:article.cover
     }));
 }
 

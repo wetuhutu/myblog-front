@@ -1,14 +1,7 @@
 <script setup>
 import logIn from './views/logIn.vue';
-import articleCard from './views/articleCard.vue';
 import search from './views/search.vue';
-import updataArticle from './views/updataArticle.vue';
-import { ref } from 'vue';
-import { useUpdateArticleStore } from '@/store/updateArticle';
-
-const updateArticleStore = useUpdateArticleStore();
-const articles = ref([]);
-articles.value = updateArticleStore.articleList;
+import { RouterView,RouterLink } from 'vue-router';
 
 </script>
 
@@ -16,6 +9,12 @@ articles.value = updateArticleStore.articleList;
   <div class="background">
     <aside>
       <logIn />
+
+        <!-- 这里放路由导航 -->
+        <button class="navigator">
+          <RouterLink to="/">ceshilianjie</RouterLink>
+        </button>
+      
     </aside>
 
     <main>
@@ -23,23 +22,9 @@ articles.value = updateArticleStore.articleList;
       <div class="header">
         <search />
       </div>
-      <div class="main-content">
-        <div style="width: 100%;"> <updataArticle /></div>
-        
-        <div v-for="article in articles" class="card"> 
-          <articleCard>
-            <template #title>
-              {{ article.title }}
-            </template>
-            <template>
-              {{ article.content }} 
-            </template>
-          </articleCard>
-          
-        </div>
-    
-      </div>
-      
+      <!-- 这里放路由组件 -->
+      <RouterView></RouterView>
+
     </main>
   </div>
 </template>
@@ -66,25 +51,11 @@ main {
     align-items: center;
 }
 
-.main-content {
-    position: relative;
-    height: 70%;
-    display: flex;
-    overflow-y: scroll ;
-    scrollbar-width: none;
-    font-size: 30px;
-    flex-wrap: wrap;
-}
-
-.card{
-  width: 20%;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 20px;
-  margin-top: 10px;
-  height: 180px;
+.navigator{
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translate(-50% , -50%);
 }
 
 </style>

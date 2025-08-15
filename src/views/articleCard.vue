@@ -1,20 +1,33 @@
 <script setup>
+import { RouterLink } from 'vue-router';
+import { defineProps } from 'vue';
+
+const props = defineProps(['coverImg'])
+
+const getImageUrl = (url) => {
+  // 检查是否是本地路径
+  if (url && url.includes('public')) {
+    // 从 public 路径中提取文件名
+    const fileName = url.split('\\').pop()
+    return `/${fileName}` // 返回正确的公共资源路径
+  }
+  return url // 如果是远程 URL，直接返回
+}
+
+console.log('back: ', props.coverImg)
 
 </script>
 
 <template>
-    <div class="box">
+    <div class="box" :style="{'background-image': `url(${getImageUrl(props.coverImg)})`}">
         <div class="about">
             <div class="title">
-                <a href="#" class="title-link">
+                <RouterLink class="title-link" to="/article">
                     <slot name="title"></slot>
-                </a>
+                </RouterLink>
             </div>
-            <p>
-                <slot name="title"></slot>
-            </p>
+            <slot name="summary"></slot>
         </div>
-        <div class="figure"></div>
     </div>
 </template>
 
@@ -25,6 +38,8 @@
     width: 250px;
     height: 150px;
     background-color: rgba(0,0,0,0.5);
+    /* background-image: url(back.png); */
+    background-size: cover;
     border-radius: 10px;
     transition: transform 0.3s ease;
 }
@@ -50,52 +65,6 @@
     border: border-box;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-.figure{
-    width: 100%;
-    height: 100%;
-}
-
-.figure::before{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%;
-    height: 100%;
-    background: url('back.png');/* 这里可以换成图片url */
-    background-position: 10%;
-    background-size: cover;
-    transform-origin: bottom;
-    transition: .5s;
-    border-bottom-left-radius: 10px;
-    border-top-left-radius: 10px;
-
-}
-
-.box:hover .figure::before{
-    transform: rotateX(90deg);
-}
-
-.figure::after{
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 50%;
-    height: 100%;
-    background: url('back.png');/* 这里可以换成图片url */
-    background-position: 90%;
-    background-size: cover;
-    transition: .5s;
-    transform-origin: top;
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
-}
-
-.box:hover .figure::after{
-    transform: rotateX(90deg);
 }
 
 .title-link {
