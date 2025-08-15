@@ -13,17 +13,7 @@ const updateArticleStore = useUpdateArticleStore();
         <div style="width: 100%;"> <updataArticle /></div>
         
         <div v-for="article in updateArticleStore.articleList" class="card"> 
-          <articleCard :cover-img="article.cover">
-            <template #title>
-              {{ article.title }}
-            </template>
-            <template #summary>
-              <!-- {{ article.summary }}  -->
-                {{ article.summary ? article.summary : 'No summary available' }}
-            </template>
-            
-          </articleCard>
-          
+          <articleCard :article="article" />
         </div>
     
     </div>

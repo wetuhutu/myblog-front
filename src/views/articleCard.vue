@@ -1,8 +1,9 @@
 <script setup>
 import { RouterLink } from 'vue-router';
-import { defineProps } from 'vue';
+import { useUpdateArticleStore } from '@/store/updateArticle';
 
-const props = defineProps(['coverImg'])
+const props = defineProps(['article']);
+const store = useUpdateArticleStore();
 
 const getImageUrl = (url) => {
   // 检查是否是本地路径
@@ -19,14 +20,16 @@ console.log('back: ', props.coverImg)
 </script>
 
 <template>
-    <div class="box" :style="{'background-image': `url(${getImageUrl(props.coverImg)})`}">
+    <div class="box" 
+         :style="{'background-image': `url(${getImageUrl(props.article.cover)})`}"
+         @click="store.setCurrentArticle(props.article)">
         <div class="about">
             <div class="title">
                 <RouterLink class="title-link" to="/article">
-                    <slot name="title"></slot>
+                    {{ props.article.title }}
                 </RouterLink>
             </div>
-            <slot name="summary"></slot>
+            <p>{{ props.article.summary }}</p>
         </div>
     </div>
 </template>
