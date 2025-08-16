@@ -2,6 +2,7 @@
 import axios from 'axios';
 import { useUpdateArticleStore } from '@/store/updateArticle';
 import { ref } from 'vue';
+import { mapArticles } from '@/utils/mapArticle'
 
 const updateArticleStore = useUpdateArticleStore();
 
@@ -26,16 +27,6 @@ async function updataArticle() {
         console.log('error: ', error);
     });
 };
-
-function mapArticles(rawArticles){
-
-    return rawArticles.map(article => ({
-        id: article.id,
-        title: article.title,
-        summary: article.summary,
-        cover:article.cover
-    }));
-}
 
 </script>
 

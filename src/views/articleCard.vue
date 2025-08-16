@@ -15,8 +15,6 @@ const getImageUrl = (url) => {
   return url // 如果是远程 URL，直接返回
 }
 
-console.log('back: ', props.coverImg)
-
 </script>
 
 <template>
